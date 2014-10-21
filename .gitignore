@@ -1,7 +1,7 @@
 # ignore all files in the temp/, logs/ and pdf/ directories
-temp/*
-pdf/*
-logs/*
+#temp/*
+#pdf/*
+#logs/*
 
 # ignore compiled mex files
 mex/*.mex*
