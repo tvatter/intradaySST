@@ -6,5 +6,5 @@ addpath(genpath('mex'))
 addpath(genpath('sst'))
 addpath(genpath('utils'))
 
-bootstrap_CI(seed,pair,B)
+bootstrap_ci(seed,pair,B)
 quit;

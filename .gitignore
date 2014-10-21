@@ -1,17 +1,17 @@
-/.buildpath
-/build/
-*/archive/
+# ignore all files in the temp/ and pdf/ directories
+temp/
+pdf/
 
+# ignore compiled mex files
+mex/*.mex*
+
+# OS generated files #
+######################
 __MACOSX
-.DS_Store
-
 .project
 .settings
 .classpath
 .sass-cache/
-
-# OS generated files #
-######################
 */.DS_Store
 .DS_Store
 .DS_Store?
