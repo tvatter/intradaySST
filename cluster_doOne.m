@@ -1,3 +1,7 @@
+disp(pair)
+disp(seed)
+disp(B)
+
 seed = str2num(seed);
 B = str2num(B);
 

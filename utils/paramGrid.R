@@ -6,4 +6,4 @@ B <- as.numeric(args[3]);
 pair <- c('CHFUSD','EURUSD','GBPUSD','JPYUSD')
 
 out <- expand.grid(pair,seed,B)
-write.table(out, "param_grid.txt",row.names = FALSE, col.names = FALSE,quote=F)
+write.table(out, "cluster_paramGrid.txt",row.names = FALSE, col.names = FALSE,quote=F)

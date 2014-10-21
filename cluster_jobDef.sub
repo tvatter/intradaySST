@@ -17,9 +17,9 @@
 
 MATLABLOCATION='/soft/rhel6-x86_64/matlab-R2012b/bin/matlab'
 
-MATLABPARAM='-nodesktop -nosplash -singleCompThread -nodisplay'
+MATLABPARAM='-nodesktop -nosplash -singleCompThread -nodisplay -nojvm'
 
-MATLABSCRIPT='./cluster_doOne'  
+MATLABSCRIPT='cluster_doOne'  
 
 ########################################
 # Variable containing file parsing & initialisations of the variables
