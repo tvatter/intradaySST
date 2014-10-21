@@ -1,0 +1,48 @@
+#!/bin/bash
+
+#$ -N bootstrap_CI
+
+#$ -S /bin/bash
+#$ -V
+#$ -cwd
+#$ -o logs/$JOB_NAME.o$JOB_ID.$TASK_ID 
+#$ -j y
+#$ -q short.q
+
+#$ -t 1-8
+
+
+########################################
+# Matlab parameters initialisation
+
+MATLABLOCATION='/soft/rhel6-x86_64/matlab-R2012b/bin/matlab'
+
+MATLABPARAM='-nodesktop -nosplash -singleCompThread -nodisplay'
+
+MATLABSCRIPT='./cluster_jobDef'  
+
+########################################
+# Variable containing file parsing & initialisations of the variables
+
+FPARAMTOPARSE='./cluster_paramGrid.txt' 
+
+MYPARAMSARRAY=($(awk "NR==$SGE_TASK_ID" $FPARAMTOPARSE))
+
+### Key values pairs initialisations, these will be passed to Matlab as arguments
+
+SGETASKID="myrunnumber='$SGE_TASK_ID'"
+MATVAR1="pair='${MYPARAMSARRAY[0]}'"
+MATVAR2="seed='${MYPARAMSARRAY[1]}'"
+MATVAR3="B='${MYPARAMSARRAY[2]}'"
+
+########################################
+# Construct the Matlab launch command
+
+MATLABLAUNCH="$MATLABLOCATION $MATLABPARAM -r \" $SGETASKID ; $MATVAR1 ; $MATVAR2 ; $MATVAR3 ; $MATLABSCRIPT \" " 
+
+### Launch Matlab
+
+eval $MATLABLAUNCH
+
+
+
