@@ -5,7 +5,7 @@ addpath(genpath('mfetoolbox'))
 addpath(genpath('mex'))
 addpath(genpath('sst'))
 addpath(genpath('utils'))
-plot.results = 0;
+display_results = 0;
 
 pair = ['USDCHF';'EURUSD';'GBPUSD';'USDJPY'];
 l = size(pair);
@@ -55,7 +55,7 @@ for j = 1:l(1)
     toc
 end
 
-if plot.results == 1
+if display_results == 1
     m = l(1);
     figure(1); 
     for i =1:m

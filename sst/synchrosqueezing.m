@@ -135,8 +135,9 @@ end
     tmp.tfd = tfd;
     clear tfd;
     
-    if sst.TFR.quantile_gamma > 0;             
-	sst.TFR.gamma = quantile(abs(tmp.tfd(:)), sst.TFR.quantile_gamma); 
+    if sst.TFR.quantile_gamma > 0;    
+        dd = size(tmp.tfd);
+        sst.TFR.gamma = quantile(abs(reshape(tmp.tfd,1,dd(1)*dd(2))), sst.TFR.quantile_gamma); 
     else
         sst.TFR.gamma = 1e-8;
     end
@@ -149,7 +150,7 @@ end
     
     tmp.w = (-i/2/pi/dt)*[tmp.tfd(2:end,:) - tmp.tfd(1:end-1,:); tmp.tfd(1,:)-tmp.tfd(end,:)];
     tmp.w((abs(tmp.tfd) < sst.TFR.gamma)) = NaN;
-    tmp.w = tmp.w./tmp.tfd;
+    tmp.w = abs(tmp.w./tmp.tfd);
 
 %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     %% Synchro-squeezing transform

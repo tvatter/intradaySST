@@ -21,7 +21,7 @@ addpath(genpath('mex'))
 addpath(genpath('sst'))
 addpath(genpath('utils'))
 
-cluster_paramGrid(1, 2, 2)
+cluster_paramGrid(1, 10, 10)
 seed = '1';
 B = '2';
 pair = 'EURUSD';

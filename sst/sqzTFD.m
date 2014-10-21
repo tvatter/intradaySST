@@ -6,8 +6,8 @@ function [stfd, freq, alpha] = sqzTFD(squeezing)
 % INPUT:
 %   squeezing.tftype	= CWT or STFT
 %   squeezing.tfd       = time frequency domain, CWT or STFT
-%   squeezing.w         = instantaneous freuquency information function
-%   squeezing.TFR   = parameters used in continuous wavelet transform
+%   squeezing.squeezing.w         = instantaneous freuquency information function
+%   squeezing.TFR   = parameters used in continuous squeezing.wavelet transform
 %   squeezing.stft      = parameters used in short time Fourier transform
 %   squeezing.freqrange = the frequency range displayed in the time frequency plane
 % (OPTIONS)
@@ -16,21 +16,16 @@ function [stfd, freq, alpha] = sqzTFD(squeezing)
 % OUTPUT:
 %
 % DEPENDENCY:
-%   Wavelab (included), ContWavelet.m
+%   squeezing.wavelab (included), Contsqueezing.wavelet.m
 %
-% by Hau-tieng Wu 2011-06-20 (hauwu@math.princeton.edu)
-% by Hau-tieng Wu 2012-03-03 (hauwu@math.princeton.edu)
+% by Hau-tieng squeezing.wu 2011-06-20 (hausqueezing.wu@math.princeton.edu)
+% by Hau-tieng squeezing.wu 2012-03-03 (hausqueezing.wu@math.princeton.edu)
 %
 
 
-if squeezing.debug; fprintf('(DEBUG:synchrosqueezing) working on SS...'); end
+if squeezing.debug; fprintf('(DEBUG:synchrosqueezing) squeezing.working on SS...'); end
 
-w = squeezing.w;
-
-
-w = abs(w);
-tfd = squeezing.tfd;
-[n, nscale] = size(tfd);
+[n, nscale] = size(squeezing.tfd);
 
 
 %=====================================================================
@@ -42,7 +37,7 @@ if strcmp(squeezing.TFRtype, 'CWT')
         nalpha = floor((squeezing.freqrange.high-squeezing.freqrange.low)./alpha);
         stfd = zeros(n,nalpha);
         freq = ([1:1:nalpha])*alpha+squeezing.freqrange.low;
-	nfreq = length(freq);
+        nfreq = length(freq);
 	
 	if squeezing.debug;
     	    fprintf(['linear freq resolution is ',num2str(alpha),'\n']);   
@@ -51,7 +46,7 @@ if strcmp(squeezing.TFRtype, 'CWT')
     else	%% log scale
 
 	nfreq = nscale;
-        stfd = zeros(size(tfd));
+        stfd = zeros(size(squeezing.tfd));
         freq = zeros(1, nfreq);
         freq(1) = squeezing.freqrange.low;;
         alpha = 2.^((log2(squeezing.freqrange.high/squeezing.freqrange.low))./(nscale-1));
@@ -75,22 +70,22 @@ if strcmp(squeezing.TFRtype, 'CWT')
 
             if squeezing.TFR.linear	%% linear scale
 
-                    if (isfinite(w(b, kscale)) && (w(b, kscale)>0))
-                        k = floor( ( w(b,kscale)-squeezing.freqrange.low )./ alpha )+1;
+                    if (isfinite(squeezing.w(b, kscale)) && (squeezing.w(b, kscale)>0))
+                        k = floor( ( squeezing.w(b,kscale)-squeezing.freqrange.low )./ alpha )+1;
 
                         if (isfinite(k) && (k > 0) && (k < nfreq-1))
                             ha = freq(k+1)-freq(k);
-                            stfd(b,k) = stfd(b,k) + log(2)*tfd(b,kscale)*sqrt(qscale)./ha/squeezing.TFR.nvoice;
+                            stfd(b,k) = stfd(b,k) + log(2)*squeezing.tfd(b,kscale)*sqrt(qscale)./ha/squeezing.TFR.nvoice;
                         end
                     end
 
             else  %% log scale
 
-                    if (isfinite(w(b, kscale)) && (w(b, kscale)>0))
-                        k = floor(( log2( w(b,kscale)/squeezing.freqrange.low ) )./ log2(alpha))+1;
+                    if (isfinite(squeezing.w(b, kscale)) && (squeezing.w(b, kscale)>0))
+                        k = floor(( log2( squeezing.w(b,kscale)/squeezing.freqrange.low ) )./ log2(alpha))+1;
                         if (isfinite(k) && (k > 0) && (k < nfreq))
                 ha = freq(k+1)-freq(k);
-                            stfd(b,k) = stfd(b,k) + log(2)*tfd(b,kscale)*sqrt(qscale)./ha/squeezing.TFR.nvoice;
+                            stfd(b,k) = stfd(b,k) + log(2)*squeezing.tfd(b,kscale)*sqrt(qscale)./ha/squeezing.TFR.nvoice;
                         end
                     end
 
@@ -101,8 +96,8 @@ if strcmp(squeezing.TFRtype, 'CWT')
 
     else
         
-        w(~isfinite(w))=1e9;
-        stfd = sqzTFD_CWTlin(w', freq, tfd', n, nscale, nalpha, squeezing.TFR.scale, squeezing.TFR.nvoice, squeezing.freqrange.low, alpha)';
+        squeezing.w(~isfinite(squeezing.w))=1e9;
+        stfd = sqzTFD_CWTlin(squeezing.w', freq, squeezing.tfd', n, nscale, nalpha, squeezing.TFR.scale, squeezing.TFR.nvoice, squeezing.freqrange.low, alpha)';
 
     end
 
@@ -126,14 +121,14 @@ if strcmp(squeezing.TFRtype, 'STFT')
             if squeezing.debug; if mod(b,floor(n/10))==0; fprintf('*'); end; end;
 
             for jj = 1:nscale		%% -Squeezing
-                if isfinite(w(b,jj))
-                    k = floor((w(b,jj)-squeezing.freqrange.low)./alpha);
-                    %k = floor((+squeezing.tfd_ytic(jj) -w(b,jj)-squeezing.freqrange.low)./alpha);
+                if isfinite(squeezing.w(b,jj))
+                    k = floor((squeezing.w(b,jj)-squeezing.freqrange.low)./alpha);
+                    %k = floor((+squeezing.tfd_ytic(jj) -squeezing.w(b,jj)-squeezing.freqrange.low)./alpha);
                     if (k>0) && (k<=nalpha);
                         if squeezing.TFR.measure
                                     stfd(b,k) = stfd(b,k)+1;
                         else
-                                    stfd(b,k) = stfd(b,k)+tfd(b,jj);
+                                    stfd(b,k) = stfd(b,k)+squeezing.tfd(b,jj);
                         end
                     end
                 end
@@ -142,8 +137,8 @@ if strcmp(squeezing.TFRtype, 'STFT')
 
     else
         
-        w(~isfinite(w))=1e9;
-        stfd = sqzTFD_STFT(w', tfd', n, nscale, nalpha, squeezing.TFR.measure, squeezing.freqrange.low, alpha)';
+        squeezing.w(~isfinite(squeezing.w))=1e9;
+        stfd = sqzTFD_STFT(squeezing.w', squeezing.tfd', n, nscale, nalpha, squeezing.TFR.measure, squeezing.freqrange.low, alpha)';
         %keyboard()
     end
     

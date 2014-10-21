@@ -9,6 +9,7 @@
 #$ -o logs/$JOB_NAME.o$JOB_ID.$TASK_ID 
 #$ -j y
 #$ -q short.q
+#$ -pe smp 2
 
 ########################################
 # Matlab parameters initialisation
