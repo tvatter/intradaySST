@@ -38,7 +38,7 @@ function [rslt] = synchrosqueezing(sst);
 %		  v0.2 2011-09-10
 %		  v0.3 2012-03-03
 %
-% TODO: curve extraction and component reconstruction for STFT and linear-CWT
+
 if sst.cleanup; clc; close all; end
 
 
@@ -125,6 +125,7 @@ end
         [tfd, tfd_ytic, Rpsi] = ContWavelet(tmpdata);
         %tmpdata.minus_i_partial_b = 1; %[Dtfd, Junk] = ContWavelet(tmpdata);
 	    %% TODO: optimize the differentiation step by this parameter
+        clear tmpdata;
         Dtfd = (-i/2/pi/dt)*[tfd(2:end,:) - tfd(1:end-1,:); tfd(1,:)-tfd(end,:)];
 
     elseif strcmp(sst.TFRtype,'STFT');
@@ -132,6 +133,7 @@ end
 	tmpdata.x = x;
 	tmpdata.alpha = tmpdata.alpha * tmpdata.rescale;
         [tfd, tfd_ytic] = STFourier(tmpdata);
+        clear tmpdata;
         Dtfd = (-i/2/pi/dt)*[tfd(2:end,:) - tfd(1:end-1,:); tfd(1,:)-tfd(end,:)];
 
     end
@@ -142,8 +144,6 @@ end
         sst.TFR.gamma = 1e-8;
     end
 
-    clear tmpdata;
-    
     if sst.debug
     	toc
     end
