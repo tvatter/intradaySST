@@ -148,8 +148,8 @@ end
     %% instantaneous frquency information function
     
     tmp.w = (-i/2/pi/dt)*[tmp.tfd(2:end,:) - tmp.tfd(1:end-1,:); tmp.tfd(1,:)-tmp.tfd(end,:)];
-    tmp.w((abs(tfd) < sst.TFR.gamma)) = NaN;
-    tmp.w = tmp.w./tfd;
+    tmp.w((abs(tmp.tfd) < sst.TFR.gamma)) = NaN;
+    tmp.w = tmp.w./tmp.tfd;
 
 %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     %% Synchro-squeezing transform
@@ -176,7 +176,7 @@ end
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	%% take care of the symmetrization
-    rslt.tfd  = rlst.tfd(1:end/N2,:);
+    rslt.tfd  = rslt.tfd(1:end/N2,:);
     rslt.tfd_ytic = tfd_ytic;
     rslt.stfd = rslt.stfd(1:end/N2,:);
     rslt.freq  = freq./sst.TFR.rescale;
