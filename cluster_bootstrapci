@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #$ -N bootstrap_CI
-#$ -t 1-8
+#$ -t 1-160
 
 #$ -S /bin/bash
 #$ -V
@@ -9,14 +9,14 @@
 #$ -o logs/$JOB_NAME.o$JOB_ID.$TASK_ID 
 #$ -j y
 #$ -q short.q
-#$ -pe smp 2
+#$ -pe smp 3
 
 ########################################
 # Matlab parameters initialisation
 
 MATLABLOCATION='/soft/rhel6-x86_64/matlab-R2012b/bin/matlab'
 
-MATLABPARAM='-nodesktop -nosplash -singleCompThread -nodisplay -nojvm'
+MATLABPARAM='-nodesktop -nosplash -nodisplay -nojvm'
 
 MATLABSCRIPT='cluster_doOne'  
 

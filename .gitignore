@@ -6,6 +6,9 @@
 # ignore compiled mex files
 mex/*.mex*
 
+# ignore matlab data files
+*.mat
+
 # OS generated files #
 ######################
 __MACOSX
