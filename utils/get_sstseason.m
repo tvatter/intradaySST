@@ -2,8 +2,8 @@ function [s, ams, phs] = get_sstseason(vol, options)
 
    % Prepare left and right padding
     dd = options.pad;
-    b1 = fliplr(vol(1:dd));
-    b2 = fliplr(vol(end-dd+1:end));
+    b1 = vol(1:dd);
+    b2 = vol(end-dd+1:end);
 
     % Correct for odd data
     if(mod(length(vol),2) == 1)        

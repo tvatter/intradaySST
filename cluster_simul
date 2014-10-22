@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#$ -N bootstrap_CI
-#$ -t 1-160
+#$ -N simul
+#$ -t 1-80
 
 #$ -S /bin/bash
 #$ -V
@@ -9,7 +9,7 @@
 #$ -o logs/$JOB_NAME.o$JOB_ID.$TASK_ID 
 #$ -j y
 #$ -q short.q
-#$ -pe smp 3
+#$ -pe smp 2
 
 ########################################
 # Matlab parameters initialisation
@@ -18,12 +18,12 @@ MATLABLOCATION='/soft/rhel6-x86_64/matlab-R2012b/bin/matlab'
 
 MATLABPARAM='-nodesktop -nosplash -nodisplay -nojvm'
 
-MATLABSCRIPT='cluster_doOne'  
+MATLABSCRIPT='doOne_simul'  
 
 ########################################
 # Variable containing file parsing & initialisations of the variables
 
-FPARAMTOPARSE='./cluster_paramGrid.txt' 
+FPARAMTOPARSE='./paramGrid_simul.txt' 
 
 MYPARAMSARRAY=($(awk "NR==$SGE_TASK_ID" $FPARAMTOPARSE))
 

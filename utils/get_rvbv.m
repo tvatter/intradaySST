@@ -9,7 +9,7 @@ function [rv, bv] = get_rvbv(ret)
     bv = NaN(n-m+1,1);
     rv = NaN(n-m+1,1);
     bias = (m-1)/m ;
-    
+
     for i = 1:(n-m+1)
     	temp = (pi/2) * abs(ret(ii-1,2))'*abs(ret(ii,2));
         bv(i) = temp / bias;

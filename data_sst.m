@@ -22,7 +22,8 @@ for j = 1:l(1)
         nn(1:3) = nn(4:6);
         nn(4:6) = 'USD';
         pair(j,:) = nn;
-        eval(['ret_',nn,' = -get_return(price);']);
+        eval(['ret_',nn,' = get_return(price);']);
+        eval(['ret_',nn,'(:,2) = -ret_',nn,'(:,2);']);
     else
        eval(['ret_',nn,' = get_return(price);']); 
     end
@@ -32,6 +33,23 @@ for j = 1:l(1)
 end
 
 clear ask bid price
+
+m = options.fs;
+for j = 1:l(1)
+    nn = pair(j,:);
+    disp(['RV, BV and FFF: ',nn])
+    tic
+    eval(['[rv_',nn,', bv_',nn,'] = get_rvbv(ret_',nn,');']);
+    eval(['mu = mean(ret_',nn,'(:,2));']);
+    eval(['vol2_',nn,' = log(((ret_',nn,'(:,2)-mu).^2)./[repmat(bv_',nn,'(1),m-1,1);bv_',nn,']);']);
+    eval(['[fff_',nn,', paramfff_',nn,'] = get_fff(vol2_',nn,', m, options.season.sst.ncomp);']);
+   
+    eval(['save temp/rv_',nn,'.mat rv_',nn]);
+    eval(['save temp/bv_',nn,'.mat bv_',nn]);
+    eval(['save temp/fff_',nn,'.mat fff_',nn]);
+    eval(['save temp/paramfff_',nn,'.mat paramfff_',nn]);
+    toc
+end
 
 for j = 1:l(1)
     nn = pair(j,:);
@@ -92,6 +110,29 @@ if display_results == 1
             eval(['tt = a',num2str(j),'_',pair(i,:),';']);
             plot([2:5*options.fs]/options.fs,tt(2:end), 'color',cc(j,:));       
         end
+        title(pair(i,:)) 
+        axis tight
+    end
+    keyboard()
+    figure(4);
+    for i =1:m
+        nn = pair(i,:);
+        subplot(m,2,2*(i-1)+1)
+        eval(['plot(s_',nn,'(1:288*5))']);
+        hold on
+        eval(['plot(fff_',nn,'(1:288*5)-paramfff_',nn,'(1), ''-r'')']);
+        legend('sst','fff')
+        title(pair(i,:)) 
+        axis tight
+        
+        subplot(m,2,2*i)
+        eval(['plot(vol_',nn,'(1:288*5))']);   
+        hold on
+        eval(['plot(vol2_',nn,'(1:288*5), ''-g'')']);
+        eval(['plot(vol_',nn,'(1:288*5)-T_',nn,'(1:288*5),''-c'')']);
+        eval(['plot(vol2_',nn,'(1:288*5)-paramfff_',nn,'(1), ''-y'')']);
+        eval(['plot(T_',nn,'(1:288*5), ''-r'')']);
+        legend('logvol', 'log(r^2/bv)','logvol-T', 'log(r^2/bv)-s0','T')
         title(pair(i,:)) 
         axis tight
     end
