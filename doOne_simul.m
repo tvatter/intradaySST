@@ -86,9 +86,9 @@ for i = 1:B
 end
 
 % Save results
-eval(['save data/simul_',method,'_',nn,num2str(n/options.fs),'_',num2str(seed),'_',num2str(B),'.mat Bout1']);
-eval(['save data/simul_',method,'_',nn,num2str(n/options.fs),'_',num2str(seed),'_',num2str(B),'.mat Bout2 -append']);
-eval(['save data/simul_',method,'_',nn,num2str(n/options.fs),'_',num2str(seed),'_',num2str(B),'.mat Bout3 -append']);
+eval(['save temp/simul/simul_',method,'_',nn,num2str(n/options.fs),'_',num2str(seed),'_',num2str(B),'.mat Bout1']);
+eval(['save temp/simul/simul_',method,'_',nn,num2str(n/options.fs),'_',num2str(seed),'_',num2str(B),'.mat Bout2 -append']);
+eval(['save temp/simul/simul_',method,'_',nn,num2str(n/options.fs),'_',num2str(seed),'_',num2str(B),'.mat Bout3 -append']);
 
 if(strcmp(batchjob,'TRUE'))
     quit;

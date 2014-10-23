@@ -7,5 +7,5 @@ B <- as.numeric(args[4]);
 n <- c(50,150)
 method <- c('sst','fff')
 
-out <- expand.grid(pair,seed,B,n,method)
+out <- expand.grid(pair,seed,B,n,method,'TRUE')
 write.table(out, "paramGrid_simul.txt",row.names = FALSE, col.names = FALSE,quote=F)

@@ -5,7 +5,6 @@ addpath(genpath('mfetoolbox'))
 addpath(genpath('mex'))
 addpath(genpath('sst'))
 addpath(genpath('utils'))
-display_results = 0;
 
 pair = ['USDCHF';'EURUSD';'GBPUSD';'USDJPY'];
 l = size(pair);
