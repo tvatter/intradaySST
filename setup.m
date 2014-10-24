@@ -24,12 +24,13 @@ addpath(genpath('mex'))
 addpath(genpath('sst'))
 addpath(genpath('utils'))
 
-paramGrid_bootstrapci(1, 20, 10)
-seed = '1';
+
+seed = '2';
 B = '2';
 pair = 'EURUSD';
 batchjob = 'FALSE';
 doOne_bootstrapci
+%paramGrid_bootstrapci(1, 20, 10)
 
 %% Test of doOne_simul 
 

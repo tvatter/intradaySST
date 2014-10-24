@@ -7,9 +7,6 @@ function [sst] = setup_param
 
 %% default parameters
 
-    initstate; 	
-	%% initiate the random seed
-
     sst.cleanup = 0;
 
     sst.debug = 0;

@@ -26,7 +26,7 @@ for i=1:B
     eval(['[Bout_',nn,'(:,1,i),~,Bout_',nn,'(:,2:5,i),Bout_',nn,'(:,6:9,i)]=get_sstrecon(T_',nn,'+s_',nn,'+Bres_',nn,'(:,i),options);']);
 end
 
-eval(['save temp/bootstrapci/bootstrapci_',nn,'_',num2str(seed),'_',num2str(B),'.matBout_',nn]);
+eval(['save temp/bootstrapci/bootstrapci_',nn,'_',num2str(seed),'_',num2str(B),'.mat Bout_',nn]);
 
 if(strcmp(batchjob,'TRUE'))
     quit;

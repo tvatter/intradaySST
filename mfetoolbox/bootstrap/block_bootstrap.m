@@ -52,6 +52,7 @@ end
 s=ceil(t/w);
 % Generate the starting points
 Bs=floor(rand(s,B)*t)+1;
+disp(num2str(rand(1)))
 indices=zeros(s*w,B);
 index=1;
 % Adder is a variable that needs to be added each loop
