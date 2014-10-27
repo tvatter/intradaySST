@@ -20,7 +20,7 @@ function [] = boottrend_figure(pair, path)
    eval(['load temp/Tboot_',nn,'.mat']);
    eval(['Tb = Tboot_',nn,';']);
    eval(['clear Tboot_',nn,'']);   
- 
+
    [Tci,Tbias] = get_bootnorm(exp(T)*exp(-paramfff(1)),exp(Tb)*exp(-paramfff(1)),0.05);
    Tc = exp(T)*exp(-paramfff(1)) - Tbias; 
    

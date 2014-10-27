@@ -15,7 +15,12 @@ n = 288000;
 L = length(pair);
 K = options.season.sst.ncomp;
 
-for l = 1:L
+nn = 'EURUSD';
+eval(['load temp/ret_',nn,'.mat']);
+eval(['n = length(ret_',nn,');']);
+eval(['clear ret_',nn]);
+
+for l = 1:2
    tic
    disp(pair(l,:))
    disp('trend')
