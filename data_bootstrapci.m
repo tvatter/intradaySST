@@ -19,12 +19,12 @@ for l = 1:L
    tic
    disp(pair(l,:))
    disp('trend')
-   get_bootstrapci(dir_bootstrapci,pair(l,:),'T',n,nseed,B,options)
+   get_bootdata(dir_bootstrapci,pair(l,:),'T',n,nseed,B,options)
    for k = 1:K
      disp(['am', num2str(k)])
-     get_bootstrapci(dir_bootstrapci,pair(l,:),['am',num2str(k)],n,nseed,B,options)
+     get_bootdata(dir_bootstrapci,pair(l,:),['am',num2str(k)],n,nseed,B,options)
      disp(['ph', num2str(k)])
-     get_bootstrapci(dir_bootstrapci,pair(l,:),['ph',num2str(k)],n,nseed,B,options)
+     get_bootdata(dir_bootstrapci,pair(l,:),['ph',num2str(k)],n,nseed,B,options)
    end
    toc
 end

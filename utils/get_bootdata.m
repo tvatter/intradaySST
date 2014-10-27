@@ -1,4 +1,4 @@
-function get_bootstrapci(dir_bootstrapci,pair,obj,n,nseed,B,options)
+function get_bootdata(dir_bootstrapci,pair,obj,n,nseed,B,options)
 
     files = dir([dir_bootstrapci,'*',pair,'*.mat']);
     m = length(files);

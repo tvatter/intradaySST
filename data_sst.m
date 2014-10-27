@@ -40,7 +40,7 @@ for j = 1:l(1)
     tic
     eval(['[rv_',nn,', bv_',nn,'] = get_rvbv(ret_',nn,');']);
     eval(['mu = mean(ret_',nn,'(:,2));']);
-    eval(['vol2_',nn,' = log(((ret_',nn,'(:,2)-mu).^2)./[repmat(bv_',nn,'(1),m-1,1);bv_',nn,']);']);
+    eval(['vol2_',nn,' = log(((ret_',nn,'(:,2)-mu).^2)./bv_',nn,');']);
     eval(['[fff_',nn,', paramfff_',nn,'] = get_fff(vol2_',nn,', m, options.season.sst.ncomp);']);
    
     eval(['save temp/rv_',nn,'.mat rv_',nn]);
@@ -68,6 +68,8 @@ for j = 1:l(1)
     eval(['save temp/b_',nn,'.mat b_',nn]);
     eval(['save temp/T_',nn,'.mat T_',nn]);
     eval(['save temp/s_',nn,'.mat s_',nn]);
+    eval(['save temp/am_',nn,'.mat am_',nn]);
+    eval(['save temp/ph_',nn,'.mat ph_',nn]);
     eval(['save temp/res_',nn,'.mat res_',nn]);
     toc
 end
