@@ -50,7 +50,7 @@ function [] = bootam_figure(pair, path, options)
 
    [~, I] = arrayfun(@(Year) min(abs(datenum(Year,1,3)-ret(:,1))), 2010:2013);
    xtick = [I', ret(I,1)];   
-     keyboard()
+
    for jj = 1:K
        scrsz = get(0,'ScreenSize');
        fig = figure(jj);
@@ -73,4 +73,5 @@ function [] = bootam_figure(pair, path, options)
        ylabel(['Amplitude ', num2str(jj)], 'fontsize', 40)
        export_fig(strcat(path,'/',pair,'_am',num2str(jj),'.pdf'),'-transparent')
    end
+   close all
 end

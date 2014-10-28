@@ -9,6 +9,10 @@ function [] = boottrend_figure(pair, path)
    eval(['rv = rv_',nn,';']);
    eval(['clear rv_',nn]);
    
+   eval(['load temp/bv_',nn,'.mat']);
+   eval(['bv = bv_',nn,';']);
+   eval(['clear bv_',nn]);
+   
    eval(['load temp/paramfff_',nn,'.mat']);
    eval(['paramfff = paramfff_',nn,';']);
    eval(['clear paramfff_',nn]);
@@ -23,8 +27,8 @@ function [] = boottrend_figure(pair, path)
 
    [Tci,Tbias] = get_bootnorm(exp(T)*exp(-paramfff(1)),exp(Tb)*exp(-paramfff(1)),0.05);
    Tc = exp(T)*exp(-paramfff(1)) - Tbias; 
-   
-   week = 1;
+
+   week = 74;
    nweeks = 8;
    n1 = 1+week*5*288;
    n2 = n1+nweeks*5*288;  
@@ -46,9 +50,10 @@ function [] = boottrend_figure(pair, path)
    boundedline(1:(n2-n1+1), Tc(n1:n2), [erl,eru], '-k');
    hold on
    l = plot(1:(n2-n1+1), Tc(n1:n2),  '-k','linewidth',2);
-   h = plot(1:(n2-n1+1), bv(n1:n2),  '-r','linewidth',2);
+   h1 = plot(1:(n2-n1+1), rv(n1:n2),  '-b','linewidth',2);
+   h2 = plot(1:(n2-n1+1), bv(n1:n2),  '-r','linewidth',2);
    %plot(n1:n2, log(bv(n1:n2))+paramfff(1),  '-b')
-   legend([l h],{'exp(T)','RV'})
+   legend([l h1 h2],{'exp(T)','RV','BV'})
    axis tight
    set(gca,'xtick',xx)
    set(gca, 'xticklabel', datestr(rr(xx), 'mm/dd'))

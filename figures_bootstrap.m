@@ -10,14 +10,11 @@ addpath(genpath('figures'))
 options = get_sstoptions();
 pair = ['CHFUSD';'EURUSD';'GBPUSD';'JPYUSD'];
 dir_bootstrapci = 'temp/bootstrapci/';
-nseed = 100;
-B = 10;
-n = 288000;
 L = size(pair);
 L = L(1);
 K = options.season.sst.ncomp;
 
-for l = 1:L
+for l = 1:4
    nn = pair(l,:);
    boottrend_figure(nn, 'pdf')
    bootam_figure(nn, 'pdf',options) 

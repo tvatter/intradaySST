@@ -11,7 +11,6 @@ pair = ['CHFUSD';'EURUSD';'GBPUSD';'JPYUSD'];
 dir_bootstrapci = 'temp/bootstrapci/';
 nseed = 100;
 B = 10;
-n = 288000;
 L = length(pair);
 K = options.season.sst.ncomp;
 
@@ -20,7 +19,7 @@ eval(['load temp/ret_',nn,'.mat']);
 eval(['n = length(ret_',nn,');']);
 eval(['clear ret_',nn]);
 
-for l = 1:2
+for l = 1:K
    tic
    disp(pair(l,:))
    disp('trend')

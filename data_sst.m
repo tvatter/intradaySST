@@ -74,7 +74,7 @@ for j = 1:l(1)
     toc
 end
 
-if display_results == 1
+if(display_results == 1)
     m = l(1);
     figure(1); 
     for i =1:m

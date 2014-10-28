@@ -5,6 +5,10 @@ function [] = bootsst_figure(pair, path, options)
    eval(['ret = ret_',nn,';']);
    eval(['clear ret_',nn]);
    
+   eval(['load temp/bv_',nn,'.mat']);
+   eval(['bv = bv_',nn,';']);
+   eval(['clear bv_',nn]);
+   
    eval(['load temp/fff_',nn,'.mat']);
    eval(['fff = fff_',nn,';']);
    eval(['clear fff_',nn]);
@@ -20,9 +24,11 @@ function [] = bootsst_figure(pair, path, options)
    K = options.season.sst.ncomp;
    m = options.fs;
    n = length(fff);
+   X = NaN(n,2*K);
+   time = repmat(((1:m)/m)',n/m,1);
  
    for jj = 1:K
-       disp(num2str(jj))
+       %disp(num2str(jj))
         eval(['load temp/am',num2str(jj),'boot_',nn,'.mat']);
         eval(['am',num2str(jj),'b = am',num2str(jj),'boot_',nn,';']);
         eval(['clear am',num2str(jj),'boot_',nn,'']); 
@@ -32,6 +38,7 @@ function [] = bootsst_figure(pair, path, options)
         eval(['s',num2str(jj),'b = am',num2str(jj),'b.*cos(ph',num2str(jj),'b);']); 
         eval(['clear ph',num2str(jj),'b']);
         eval(['clear am',num2str(jj),'b']);
+        X(:,[jj jj+K]) = [cos(2*pi*jj*time) sin(2*pi*jj*time)];
    end 
 
    sb = s1b;
@@ -43,6 +50,13 @@ function [] = bootsst_figure(pair, path, options)
     
    [sci,sbias] = get_bootnorm(s,sb,0.05);
    sc = s-sbias; 
+   
+   %keyboard()
+   wsize = 4*5*m;
+   mu = mean(ret(:,2));
+   vol = log(((ret(:,2)-mu).^2./bv));
+   paramrfff=rollregress(X,vol,wsize);  
+   rfff = sum(X(round(wsize/2):n-round(wsize/2),:).*paramrfff(:,2:end),2);
 
    week = 1;
    nweeks = 2;
