@@ -37,6 +37,6 @@ function get_simuldata(dir_simul,pair,obj,n,nseed,B,options)
 
     for k = 1:3
        eval(['save  -v7.3 temp/',nn,'_sst',num2str(k),'.mat ',nn,'_sst',num2str(k)]);
-       eval(['save  -v7.3 temp/',nn,'_sst',num2str(k),'.mat ',nn,'_sst',num2str(k)]);
+       eval(['save  -v7.3 temp/',nn,'_fff',num2str(k),'.mat ',nn,'_fff',num2str(k)]);
     end
 end

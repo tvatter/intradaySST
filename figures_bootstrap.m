@@ -17,7 +17,7 @@ cc = hsv(4);
 for l = 1:4
    nn = pair(l,:);
    %boottrend_figure(nn, 'pdf')
-   bootam_figure(nn, 'pdf',options) 
+   %bootam_figure(nn, 'pdf',options) 
    bootsst_figure(nn, 'pdf',options) 
 end
 

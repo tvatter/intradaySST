@@ -78,7 +78,7 @@ function [] = bootsst_figure(pair, path, options)
    for k = 1:length(sel)-1
        [~,xx(k)] = min(abs(rr-sel(k+1)));
    end
-     
+  
    scrsz = get(0,'ScreenSize');
    fig = figure(1);
    set(fig,'position',scrsz);
@@ -88,7 +88,7 @@ function [] = bootsst_figure(pair, path, options)
    hold on
    h2 = plot(1:(n2-n1+1), fff(n1:n2)-paramfff(1),  '-b','linewidth',2);
    l = plot(1:(n2-n1+1), sc(n1:n2),  '-k','linewidth',2);
-   h1 = plot(1:(n2-n1+1), rfff(n1:n2),  '-r','linewidth',2);
+   h1 = plot(1:(n2-n1+1), rfff((n1-round(wsize/2)):(n2-round(wsize/2))),  '-r','linewidth',2);
    legend([l h1 h2],{'SST','rFFF','FFF'}','linewidth',2)
    axis tight
    set(gca,'ylim',[-2 2])
@@ -119,7 +119,7 @@ function [] = bootsst_figure(pair, path, options)
    hold on
    h2 = plot(1:(n2-n1+1), fff(n1:n2)-paramfff(1),  '-b','linewidth',2);
    l = plot(1:(n2-n1+1), sc(n1:n2),  '-k','linewidth',2);
-   h1 = plot(1:(n2-n1+1), rfff(n1:n2),  '-r','linewidth',2);
+   h1 = plot(1:(n2-n1+1), rfff((n1-round(wsize/2)):(n2-round(wsize/2))),  '-r','linewidth',2);
    legend([l h1 h2],{'SST','rFFF','FFF'}','linewidth',2)
    axis tight
    set(gca,'ylim',[-2 2])
