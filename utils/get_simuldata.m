@@ -23,7 +23,7 @@ function get_simuldata(dir_simul,pair,obj,n,nseed,B,options)
         ll = strsplit(obj,'ph');
         ll = ['1+',num2str(options.season.sst.ncomp),'+',ll{2}];
     end  
-        keyboard()
+
     for j = 1:m
         load([dir_simul,filesfff(j).name])
         for k = 1:3

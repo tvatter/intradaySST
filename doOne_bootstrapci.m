@@ -11,6 +11,8 @@ disp([pair,',seed',num2str(seed)])
 nn=pair;
 rng('default')
 rng(seed);
+rand('state', seed);
+randn('state', seed);
 
 eval(['options=get_sstoptions();']);
 eval(['load temp/b_',nn,'.mat']);
