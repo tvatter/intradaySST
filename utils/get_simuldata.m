@@ -17,11 +17,11 @@ function get_simuldata(dir_simul,pair,obj,n,nseed,B,options)
     if(strcmp(obj(1),'T'))
         ll = '1';
     elseif(strcmp(obj(1:2),'am'))
-        ll = strsplit(obj,'am');
-        ll = ['1+',ll{2}];
+        ll = obj(3);
+        ll = ['1+',ll];
     elseif(strcmp(obj(1:2),'ph'))
-        ll = strsplit(obj,'ph');
-        ll = ['1+',num2str(options.season.sst.ncomp),'+',ll{2}];
+        ll = obj(3);
+        ll = ['1+',num2str(options.season.sst.ncomp),'+',ll];
     end  
 
     for j = 1:m
