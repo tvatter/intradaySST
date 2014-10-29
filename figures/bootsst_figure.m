@@ -58,18 +58,25 @@ function [] = bootsst_figure(pair, path, options)
    paramrfff=rollregress(X,vol,wsize);  
    rfff = sum(X(round(wsize/2):n-round(wsize/2),:).*paramrfff(:,2:end),2);
 
-   week = 1;
-   nweeks = 2;
-   n1 = 1+week*5*288;
-   n2 = n1+nweeks*5*288/2;  
-   
-   rr = ret(n1:n2);
-   days = unique(datenum(datestr(rr,'dd-mm-yyyy'),'dd-mm-yyyy'));
-   tmp = arrayfun(@(x) strcmp(datestr(x,'ddd'),'Mon'), days);
-   days = days(tmp);
-   xx = NaN(1,length(days));
-   for k = 1:length(days)
-       [~,xx(k)] = min(abs(rr-days(k)));
+%    week = 1;
+%    nweeks = 1;
+%    n1 = 1+(week-1)*5*288;
+%    n2 = n1+nweeks*5*288-1;  
+%    rr = ret(n1:n2,1);
+%    sel = unique(datenum(datestr(rr,'yyyy-mm-dd'),'yyyy-mm-dd'));
+%    xx = NaN(length(sel)-1,1);
+%    for k = 1:length(sel)-1
+%        [~,xx(k)] = min(abs(rr-sel(k+1)));
+%    end
+
+   dd = datenum(2011,07,10,21,0,0);
+   n1 = find(ret(:,1) >= dd, 1, 'first');
+   n2 = n1+288*5-1;
+   rr = ret(n1:n2,1);
+   sel = unique(datenum(datestr(rr,'yyyy-mm-dd'),'yyyy-mm-dd'));
+   xx = NaN(length(sel)-1,1);
+   for k = 1:length(sel)-1
+       [~,xx(k)] = min(abs(rr-sel(k+1)));
    end
      
    scrsz = get(0,'ScreenSize');
@@ -79,17 +86,49 @@ function [] = bootsst_figure(pair, path, options)
    eru = sci(n1:n2,2)-sc(n1:n2);     
    boundedline(1:(n2-n1+1), sc(n1:n2), [erl,eru], '-k');
    hold on
+   h2 = plot(1:(n2-n1+1), fff(n1:n2)-paramfff(1),  '-b','linewidth',2);
    l = plot(1:(n2-n1+1), sc(n1:n2),  '-k','linewidth',2);
-   h = plot(1:(n2-n1+1), fff(n1:n2)-paramfff(1),  '-r','linewidth',2);
-   legend([l h],{'SST','FFF'})
+   h1 = plot(1:(n2-n1+1), rfff(n1:n2),  '-r','linewidth',2);
+   legend([l h1 h2],{'SST','rFFF','FFF'}','linewidth',2)
    axis tight
-   set(gca,'ylim',[-1.5 1.5])
-   set(gca,'ytick',-1:0.5:1)
+   set(gca,'ylim',[-2 2])
+   set(gca,'ytick',-1.5:0.5:1.5)
    set(gca,'xtick',xx)
-   set(gca, 'xticklabel', datestr(rr(xx), 'mm/dd'))
+   set(gca, 'xticklabel', datestr(rr(xx), 'yy-mm-dd'))
    set(gca, 'fontsize', 40)
    title(pair, 'fontsize', 50)
    ylabel('Seasonality', 'fontsize', 40)
-   export_fig(strcat(path,'/',pair,'_season.pdf'),'-transparent') 
+   export_fig(strcat(path,'/',pair,'_season1.pdf'),'-transparent') 
+   
+   dd = datenum(2011,08,07,21,0,0);
+   n1 = find(ret(:,1) >= dd, 1, 'first');
+   n2 = n1+288*5-1;
+   rr = ret(n1:n2,1);
+   sel = unique(datenum(datestr(rr,'yyyy-mm-dd'),'yyyy-mm-dd'));
+   xx = NaN(length(sel)-1,1);
+   for k = 1:length(sel)-1
+       [~,xx(k)] = min(abs(rr-sel(k+1)));
+   end
+     
+   scrsz = get(0,'ScreenSize');
+   fig = figure(2);
+   set(fig,'position',scrsz);
+   erl = sc(n1:n2)-sci(n1:n2,1);
+   eru = sci(n1:n2,2)-sc(n1:n2);     
+   boundedline(1:(n2-n1+1), sc(n1:n2), [erl,eru], '-k');
+   hold on
+   h2 = plot(1:(n2-n1+1), fff(n1:n2)-paramfff(1),  '-b','linewidth',2);
+   l = plot(1:(n2-n1+1), sc(n1:n2),  '-k','linewidth',2);
+   h1 = plot(1:(n2-n1+1), rfff(n1:n2),  '-r','linewidth',2);
+   legend([l h1 h2],{'SST','rFFF','FFF'}','linewidth',2)
+   axis tight
+   set(gca,'ylim',[-2 2])
+   set(gca,'ytick',-1.5:0.5:1.5)
+   set(gca,'xtick',xx)
+   set(gca, 'xticklabel', datestr(rr(xx), 'yy-mm-dd'))
+   set(gca, 'fontsize', 40)
+   title(pair, 'fontsize', 50)
+   ylabel('Seasonality', 'fontsize', 40)
+   export_fig(strcat(path,'/',pair,'_season2.pdf'),'-transparent') 
    close all
 end

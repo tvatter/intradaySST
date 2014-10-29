@@ -41,7 +41,7 @@ addpath(genpath('mex'))
 addpath(genpath('sst'))
 addpath(genpath('utils'))
 
-paramGrid_simul('EURUSD',1, 10, 10)
+paramGrid_simul('EURUSD',1, 25, 10)
 seed = '1';
 B = '4';
 pair = 'EURUSD';

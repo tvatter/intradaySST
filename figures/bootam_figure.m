@@ -60,9 +60,9 @@ function [] = bootam_figure(pair, path, options)
        eval(['boundedline(1:n, am',num2str(jj),'c, [erl,eru], ''-k'');']);
        hold on
        h2 = plot(round(wsize/2):n-round(wsize/2), amfff(:,jj),  '-r','linewidth',2);
-       eval(['h1 = plot([1 n],repmat(amfff2(',num2str(jj),'),2,1),''--k'',''linewidth'',2);']);
        eval(['l = plot(1:n, am',num2str(jj),'c,  ''-k'',''linewidth'',2);']);
-       legend([l h1 h2],{'SST','FFF','rFFF'})
+       eval(['h1 = plot([1 n],repmat(amfff2(',num2str(jj),'),2,1),''-b'',''linewidth'',2);']);
+       legend([l h2 h1],{'SST','rFFF','FFF'})
        axis tight
        set(gca,'ylim',[0 1.5])
        set(gca,'ytick',0.2:0.4:1.4)
