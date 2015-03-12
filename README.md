@@ -8,9 +8,7 @@ This is the code which accompanies the paper ["Non-Parametric Estimation of Intr
 by Thibault Vatter, Hau-Tieng Wu, Valerie Chavez-Demoulin and Bin Yu.
 
 The code is written in [MATLAB](http://www.mathworks.it/products/matlab/); it
-provides a function which reads a multiple sequence alignment (in FASTA format)
-and returns a ranking of all pairs of residue positions in the aligned
-amino-acid sequences.
+provides functions to clean intraday FX prices and apply the Synchrosqueezing transform to extract the trend and seasonality from the returns volatilities.
 
 The code uses some MATLAB MEX files written in C, which need to be compiled; in
 case a compiler is not available, it will still work, but it will use (much)
