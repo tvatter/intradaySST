@@ -15,3 +15,8 @@ amino-acid sequences.
 The code uses some MATLAB MEX files written in C, which need to be compiled; in
 case a compiler is not available, it will still work, but it will use (much)
 slower fallbacks written in MATLAB code.
+
+Usage
+--------
+
+Open and run the file setup.m for examples.
